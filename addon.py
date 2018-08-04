@@ -34,14 +34,14 @@ STRINGS = {
     'add_to_my_stations': 30400,
     'remove_from_my_stations': 30401,
     'edit_custom_station': 30402,
+    'mark_autostart': 30403,
+    'unmark_autostart': 30404,
     'please_enter': 30500,
     'name': 30501,
     'thumbnail': 30502,
     'stream_url': 30503,
     'add_custom': 30504
 }
-
-
 plugin = Plugin()
 radio_api = RadioApi()
 my_stations = plugin.get_storage('my_stations.json', file_format='json')
@@ -151,6 +151,27 @@ def del_from_my_stations(station_id):
         my_stations.sync()
 
 
+@plugin.route('/stations/my/mark/<station_id>')
+def mark_autostart(station_id):
+    for station in my_stations.values():
+        if 'autostart' in station:
+            del station['autostart']
+
+    if station_id in my_stations:
+        station = my_stations[station_id]
+        station['autostart'] = "true"
+    my_stations.sync()
+
+
+@plugin.route('/stations/my/unmark/<station_id>')
+def unmark_autostart(station_id):
+    if station_id in my_stations:
+        station = my_stations[station_id]
+        if 'autostart' in station:
+            del station['autostart']
+    my_stations.sync()
+
+
 @plugin.route('/stations/<category_type>/')
 def show_station_categories(category_type):
     categories = radio_api.get_categories(category_type)
@@ -192,6 +213,7 @@ def __add_stations(stations, add_custom=False):
     my_station_ids = my_stations.keys()
     for i, station in enumerate(stations):
         station_id = str(station['id'])
+        name = station.get('name', '')
         if not station_id in my_station_ids:
             context_menu = [(
                 _('add_to_my_stations'),
@@ -204,6 +226,19 @@ def __add_stations(stations, add_custom=False):
                 'XBMC.RunPlugin(%s)' % plugin.url_for('del_from_my_stations',
                                                       station_id=station_id),
             )]
+            if 'autostart' in station:
+                context_menu.append((
+                    _('unmark_autostart'),
+                    'XBMC.RunPlugin(%s)' % plugin.url_for('unmark_autostart',
+                                                          station_id=station_id),
+                ))
+                name += ' [COLOR green](startup)[/COLOR]'
+            else:
+                context_menu.append((
+                    _('mark_autostart'),
+                    'XBMC.RunPlugin(%s)' % plugin.url_for('mark_autostart',
+                                                          station_id=station_id),
+                ))
         if station.get('is_custom', False):
             context_menu.append((
                 _('edit_custom_station'),
@@ -214,7 +249,7 @@ def __add_stations(stations, add_custom=False):
             'label': station.get('name', ''),
             'thumbnail': station['thumbnail'],
             'info': {
-                'title': station.get('name', ''),
+                'title': name,
                 'rating': str(station.get('rating', '0.0')),
                 'genre': station.get('genre', ''),
                 'size': int(station.get('bitrate', 0)),
@@ -270,6 +305,7 @@ def _(string_id):
     else:
         __log('String is missing: %s' % string_id)
         return string_id
+
 
 if __name__ == '__main__':
     radio_api.set_language(__get_language())

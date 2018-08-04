@@ -25,11 +25,16 @@
     <string id="30302">Deutsch</string>
     <string id="30303">Französisch</string>
     <string id="30310">ViewMode "Thumbnail" erzwingen</string>
+    <string id="30311">Radiosender beim Start abspielen</string>
+    <string id="30312">Abspielen beim Start aktivieren</string>
+    <string id="30313">Bitte markiere einen Sender im Kontextmenü in "Meine Sender"</string>
 
     <!-- Context Menu -->
     <string id="30400">Zu "Meine Sender" hinzufügen</string>
     <string id="30401">Von "Meine Sender" entfernen</string>
     <string id="30402">Sender editieren</string>
+    <string id="30403">Für das abspielen beim Start markieren</string>
+    <string id="30404">Für das abspielen beim Start demakieren</string>
 
     <!-- Custom Station -->
     <string id="30500">Bitte %s angeben</string> <!--%s will be filled by 30501, 30502 or 30503 -->

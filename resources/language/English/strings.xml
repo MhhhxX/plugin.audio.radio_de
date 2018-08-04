@@ -25,11 +25,16 @@
     <string id="30302">German</string>
     <string id="30303">French</string>
     <string id="30310">Force ViewMode to Thumbnail</string>
+    <string id="30311">Start Radio on startup</string>
+    <string id="30312">Autostart activated</string>
+    <string id="30313">Please mark the startup Station in the context menue in "My Station"</string>
 
     <!-- Context Menu -->
     <string id="30400">Add to "My Stations"</string>
     <string id="30401">Remove from "My Stations"</string>
     <string id="30402">Edit custom Station</string>
+    <string id="30403">Mark for playing at startup</string>
+    <string id="30404">Unmark for playing at startup</string>
 
     <!-- Custom Station -->
     <string id="30500">Please enter %s</string> <!--%s will be filled by 30501, 30502 or 30503 -->
