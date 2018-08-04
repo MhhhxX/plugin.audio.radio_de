@@ -1,3 +1,6 @@
+2.3.3 (04.08.2018)
+    - play your favourite station at startup
+
 2.3.2 (07.06.2017)
     - fixed playback
 
