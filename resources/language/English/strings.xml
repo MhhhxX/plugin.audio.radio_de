@@ -45,4 +45,7 @@
 
     <!-- Error Message -->
     <string id="30600">Network Error</string>
+
+    <!-- Strings for service part of the addon -->
+    <string id="30700">Please set up a startup Station in the menue item "My Stations"</string>
 </strings>
