@@ -149,6 +149,7 @@ def del_from_my_stations(station_id):
     if station_id in my_stations:
         del my_stations[station_id]
         my_stations.sync()
+        xbmc.executebuiltin('Container.Refresh')
 
 
 @plugin.route('/stations/my/mark/<station_id>')
@@ -161,6 +162,7 @@ def mark_autostart(station_id):
         station = my_stations[station_id]
         station['autostart'] = "true"
     my_stations.sync()
+    xbmc.executebuiltin('Container.Refresh')
 
 
 @plugin.route('/stations/my/unmark/<station_id>')
@@ -170,6 +172,7 @@ def unmark_autostart(station_id):
         if 'autostart' in station:
             del station['autostart']
     my_stations.sync()
+    xbmc.executebuiltin('Container.Refresh')
 
 
 @plugin.route('/stations/<category_type>/')
